@@ -9,11 +9,21 @@ export const isLogin = asyncHandler(async (req, res, next) => {
   // 2. Throw error is token does not exist
   // 3. decode token
 
-  const token =
-    req.cookies.token || req.header("Authorization").replace("Bearer ", "");
+  // const token =
+  //   req.cookies.token || req.header("Authorization").replace("Bearer ", "");
 
+  let token;
+
+  if (
+    req.cookies.token ||
+    (req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer"))
+  ) {
+    token = req.cookies.token || req.headers.authorization.split(" ")[1];
+  }
   if (!token) {
-    return next(new CustomError("Login first to access this page", 401));
+    // 401 Unauthorized - The client is not authorized to access the requested resource
+    throw new CustomError("Login first to access this page", 401);
   }
 
   try {

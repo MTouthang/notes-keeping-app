@@ -81,7 +81,9 @@ export const login = asyncHandler(async (req, res, next) => {
   }
 
   // 2. check for the email if exist or not exist
-  const user = await User.findOne({ email });
+  // select("+password") to include the password field with the particular email found
+  const user = await User.findOne({ email }).select("+password");
+
   if (!user) {
     // 400 bad request - The request was malformed or invalid
     throw new CustomError("User not found!", 400);

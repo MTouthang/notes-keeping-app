@@ -12,6 +12,11 @@ const noteSchema = new Schema(
       type: String,
       required: [true, "note content is required!"],
     },
+    author: {
+      type: mongoose.Schema.ObjectId,
+      ref: "user",
+      required: true,
+    },
   },
   {
     timestamps: true,
