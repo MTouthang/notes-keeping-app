@@ -49,7 +49,7 @@ userSchema.pre("save", async function (next) {
  * @param { String } userSendPassword - except plain password from the user
  * @return { Boolean } true/false - compare the password and return true if match else return false
  */
-userSchema.methods.isValidatePassword = async function (userSendPassword) {
+userSchema.methods.isValidPassword = async function (userSendPassword) {
   return await bcrypt.compare(userSendPassword, this.password);
 };
 
