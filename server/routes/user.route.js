@@ -20,5 +20,5 @@ router.route("/auth/user/login").post(login);
 router.route("/auth/user/logout").get(logout);
 
 // error route
-router.route("*").get(routeError);
+// router.route("*").get(routeError);
 export default router;

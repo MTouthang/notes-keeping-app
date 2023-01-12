@@ -12,7 +12,9 @@ app.use(cors()); // handling communication between different domain
 app.use(CookieParser()); // handling cookie
 
 // routes
-import api from "./routes/user.route.js";
-app.use("/api/v1", api);
+import userApi from "./routes/user.route.js";
+import noteApi from "./routes/note.route.js";
+app.use("/api/v1", userApi);
+app.use("/api/v1", noteApi);
 
 export default app;

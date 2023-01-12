@@ -28,7 +28,8 @@ export const isLogin = asyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, config.JWT_SECRET_KEY);
-    req.user = await User.findById(decoded._id, "name, email");
+    req.user = await User.findById(decoded._id, "userName email");
+
     next();
   } catch (error) {
     // 401 Unauthorized - The client is not authorized to access the request resource
