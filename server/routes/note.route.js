@@ -7,6 +7,9 @@ import {
   searchNote,
   updateNote,
 } from "../controllers/note.controller.js";
+
+//TODO: best way to handle non existing route
+
 // import { routeError } from "../controllers/user.controller.js";
 import { isLogin } from "../middlewares/authUser.middleware.js";
 

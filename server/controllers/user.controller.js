@@ -8,7 +8,7 @@ import CustomError from "../utils/customError.js";
  * test home route
  *******************************************/
 export const home = asyncHandler((req, res, next) => {
-  res.send("hello home");
+  res.send("Home Route - You have successfully created your account");
 });
 
 /********************************************

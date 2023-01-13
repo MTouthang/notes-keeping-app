@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "41d96464-04e2-4544-a0ee-ac9bb7feaca0",
+		"name": "notes-keeping-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11737909"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "userSignup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"userName\": \"mtouthang2\",\r\n     \"email\": \"mtouthang2@gmail.com\",\r\n     \"password\": \"mtouthang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{noteDomain}}/auth/user/signup",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"mtouthang@gmail.com\",\r\n    \"password\": \"mtouthang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{noteDomain}}/auth/user/login",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logOut",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{noteDomain}}/auth/user/logout",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "note",
+			"item": [
+				{
+					"name": "createNote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"user3 note2\",\r\n    \"content\": \"user3 note2 content2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{noteDomain}}/user/note",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"user",
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllNotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{noteDomain}}/user/notes",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"user",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNote",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{noteDomain}}/user/note/63c051c6b8ad8432965b98d9",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"user",
+								"note",
+								"63c051c6b8ad8432965b98d9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteNote",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{noteDomain}}/user/note/63c128c310af158bad624777",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"user",
+								"note",
+								"63c128c310af158bad624777"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateNote",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"user2 Note update\",\r\n    \"content\": \"user2 content update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{noteDomain}}/user/note/63c128ba10af158bad624774",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"user",
+								"note",
+								"63c128ba10af158bad624774"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchNote",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{noteDomain}}/user/note?title=note1",
+							"host": [
+								"{{noteDomain}}"
+							],
+							"path": [
+								"user",
+								"note"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "note1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "home_root_testing",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2JmZmM1NzBiZmI2YThhMDhiOGM4YTQiLCJlbWFpbCI6Im10b3V0aGFuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzM1MzE5OTUsImV4cCI6MTY3MzcwNDc5NX0.fm7R5-GrBB_hfdiB13v4KgycI5_JOhhjNfb8KP3Sbfo",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{noteDomain}}/",
+					"host": [
+						"{{noteDomain}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
