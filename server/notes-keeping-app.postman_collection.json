@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n     \"userName\": \"mtouthang2\",\r\n     \"email\": \"mtouthang2@gmail.com\",\r\n     \"password\": \"mtouthang\"\r\n}",
+							"raw": "{\r\n     \"userName\": \"mtouthang3\",\r\n     \"email\": \"mtouthang3@gmail.com\",\r\n     \"password\": \"mtouthang\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"mtouthang@gmail.com\",\r\n    \"password\": \"mtouthang\"\r\n}",
+							"raw": "{\r\n    \"email\": \"mtouthang3@gmail.com\",\r\n    \"password\": \"mtouthang\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -96,7 +96,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"user3 note2\",\r\n    \"content\": \"user3 note2 content2\"\r\n}",
+							"raw": "{\r\n    \"title\": \"note title one\",\r\n    \"content\": \"note content one\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -140,14 +140,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{noteDomain}}/user/note/63c051c6b8ad8432965b98d9",
+							"raw": "{{noteDomain}}/user/note/63c14d176cd2ae4ba824da1f",
 							"host": [
 								"{{noteDomain}}"
 							],
 							"path": [
 								"user",
 								"note",
-								"63c051c6b8ad8432965b98d9"
+								"63c14d176cd2ae4ba824da1f"
 							]
 						}
 					},
@@ -159,14 +159,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{noteDomain}}/user/note/63c128c310af158bad624777",
+							"raw": "{{noteDomain}}/user/note/63c14d176cd2ae4ba824da1f",
 							"host": [
 								"{{noteDomain}}"
 							],
 							"path": [
 								"user",
 								"note",
-								"63c128c310af158bad624777"
+								"63c14d176cd2ae4ba824da1f"
 							]
 						}
 					},
@@ -187,14 +187,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{noteDomain}}/user/note/63c128ba10af158bad624774",
+							"raw": "{{noteDomain}}/user/note/63c14d176cd2ae4ba824da1f",
 							"host": [
 								"{{noteDomain}}"
 							],
 							"path": [
 								"user",
 								"note",
-								"63c128ba10af158bad624774"
+								"63c14d176cd2ae4ba824da1f"
 							]
 						}
 					},
@@ -206,7 +206,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{noteDomain}}/user/note?title=note1",
+							"raw": "{{noteDomain}}/user/note?title=one",
 							"host": [
 								"{{noteDomain}}"
 							],
@@ -217,7 +217,7 @@
 							"query": [
 								{
 									"key": "title",
-									"value": "note1"
+									"value": "one"
 								}
 							]
 						}
@@ -230,14 +230,7 @@
 			"name": "home_root_testing",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2JmZmM1NzBiZmI2YThhMDhiOGM4YTQiLCJlbWFpbCI6Im10b3V0aGFuZ0BnbWFpbC5jb20iLCJpYXQiOjE2NzM1MzE5OTUsImV4cCI6MTY3MzcwNDc5NX0.fm7R5-GrBB_hfdiB13v4KgycI5_JOhhjNfb8KP3Sbfo",
-						"type": "text",
-						"disabled": true
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{noteDomain}}/",
 					"host": [
