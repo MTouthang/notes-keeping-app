@@ -2,10 +2,14 @@ import CookieParser from "cookie-parser";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 const app = express();
 
 // middle-wares
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument)); // swagger setup
 app.use(morgan("tiny")); // logging visited routes
 app.use(express.json()); // handling json object
 app.use(cors()); // handling communication between different domain

@@ -1,0 +1,236 @@
+openapi: 3.0.0
+
+info:
+  title: Note Keeper app API
+  description: This is an API documentation for Note Keeper app
+  version: 1.0.1
+
+# servers: 
+#   - url: http://localhost:8080/api/v1
+#     description: This is the local version of the api server
+#   - url: https://localhost:8080/api/v1
+#     description: This is the cloud version of the api - Coming Soon
+
+# server set up with variable, enum and default value
+servers: 
+  - url: "{protocol}://{url}/api/{version}"
+    description: Thi is the endpoint of keeper note app api
+    variables:
+      version:
+        enum:
+          - v1 
+          - v2
+        default: v1 
+      url:
+        enum: 
+          - localhost:8080 
+          - keeper-app.railway.app
+        default: localhost:8080
+      protocol: 
+        enum: 
+          - http
+          - https 
+        default: http
+components:
+  securitySchemes:
+    # basicAuth:
+    #   type: http 
+    #   scheme: basic 
+    BearerAuth:
+      type: http
+      scheme: bearer
+    # ApiKeyAuth:
+    #   type: apiKey
+    #   in: cookie 
+    #   name: token
+security: 
+  - BearerAuth: []
+
+# secure home route
+paths:
+  /:
+    get:
+      tags:
+        - Home
+      summary: return a greet message from the note keeper app
+      responses: 
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+              type: string
+              example: "Home Route - You have successfully created your account"
+       
+        401:
+          description: Unauthorized 
+          content:
+            application/json:
+              schema:
+              type: object
+              properties:
+                success: 
+                  type: string
+                message:
+                  type: string
+              example: 
+                success: false
+                message: Login first to access this page
+        500:
+          description: internal server error
+
+# user signup 
+  /auth/user/signup:
+    post: 
+      tags: 
+        - User Authentication
+      summary: signup a new user. required field are - userName, email and password
+    
+      # parameters: 
+        # - name: userName 
+        #   in: body 
+        #   description: The name of the user 
+        #   required: true
+        #   type: string
+        # - name: email 
+        #   in: body 
+        #   description: The name of the user 
+        #   required: true
+        #   type: string
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              required: 
+                - userName
+                - email
+                - password
+              properties:
+                userName:
+                  type: string
+                email: 
+                  type: string
+                password:
+                  type: string
+              example:
+                userName: johndoe
+                email: johndoe@gmail.com
+                password: "********"
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  token:
+                    type: string
+                  user: 
+                    type: object
+                    properties:
+                      userName:
+                        type: string
+                      email:
+                        type: string
+          
+        401:
+          description: bad request 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string
+                example:
+                  success: false
+                  message: "missing field or User email already exist! try with different email"
+        500:
+          description: Internal server error   
+
+  # user login           
+  /auth/user/login:
+    post:
+      tags: 
+        - User Authentication
+      summary: User to login 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              example:
+                email: example@gmail.com 
+                password: "*********"
+      responses:
+        200:
+          description: User login successfully
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  token:
+                    type: string 
+                  user: 
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      userName:
+                        type: string
+                      email:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                example:
+                  success: true
+                  token: "long token value string"
+                  user:
+                    _id: "userId"
+                    userName: "johndoe"
+                    email: "johndoe@gmail.com"
+                    createdAt: "2023-01-12T12:25:59.575Z"
+                    updatedAt: "2023-01-12T12:25:59.575Z"  
+        400:
+          description: bad request, User login unsuccessful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string
+                example:
+                  success: false
+                  message: "User not found!"
+        500:
+          description: Internal server error
+
+  ## note route
+  # createNote
+
+
+
+
+

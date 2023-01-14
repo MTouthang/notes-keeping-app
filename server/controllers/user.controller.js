@@ -37,7 +37,10 @@ export const signup = asyncHandler(async (req, res, next) => {
   const userExist = await User.findOne({ email });
   if (userExist) {
     // Error 400 bad request - The request was malformed or invalid
-    throw new CustomError("User already exists", 400);
+    throw new CustomError(
+      "User email already exists, try with other email",
+      400
+    );
   }
 
   // if user did not exist
