@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Footer from './Footer'
+
 import Header from "./Header"
 import Note from "./Note"
 
@@ -32,18 +32,19 @@ const App = () => {
      <Header/> 
      <notesContext.Provider value={{notes, setNotes, addNote,noteDelete }}>
         <CreateNote/>
-        {
-      notes.map((note, index) => {
-        return (
-          <Note id={index} key={index} note={note}
-          />
-        )
-      })
-     }
+        <div className='n-container'>
+            {
+          notes.map((note, index) => {
+            return (
+              <Note id={index} key={index} note={note}
+              />
+            )
+          })
+          }
+        </div>
+      
      </notesContext.Provider>
-    
-    
-     <Footer/>
+     
     </>
    
   )

@@ -48,7 +48,7 @@ const CreateNote = () => {
   }
 
   return (
-    <div>
+    <div className='note-form'>
          <form className='create-note'>
             {isExpanded && (
               <input 
@@ -69,10 +69,10 @@ const CreateNote = () => {
             placeholder='Take a note...' 
             rows= {isExpanded ? 3: 1}/>
             <Zoom in={isExpanded}>
-            <Fab  onClick={submitNote}><AddIcon/></Fab>
+              <Fab  onClick={submitNote} title="add note"><AddIcon/></Fab>
             </Zoom>
            
-            </form>
+          </form>
     </div>
   )
 }

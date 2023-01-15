@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
 import { notesContext } from '../context/notesContext'
 import DeleteIcon from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 
 const Note = ({id, note}) => {
@@ -12,14 +14,14 @@ const Note = ({id, note}) => {
     noteDelete(id)
   }
   return (
-  <>
-      <div className='note'>
+  
+    <div className='note'>
+      <IconButton title='Edit note'><EditIcon /></IconButton>
       <h1> {note.title}</h1>
       <p> {note.content}</p>
-      <Button onClick={handleDelete}><DeleteIcon/></Button>
+      <IconButton onClick={handleDelete} title="delete note"><DeleteIcon/></IconButton>
     </div>
-  </>
-    
+ 
   )
 }
 
