@@ -55,7 +55,6 @@ body {
   align-content: space-between;
 }
 
-
 .note {
   background: #fff;
   border-radius: 7px;
@@ -120,6 +119,7 @@ form.create-note button {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;
+  z-index: 1;
 }
 
 /* search input */
@@ -140,7 +140,6 @@ input[type="text"]:focus  {
 @media only screen and (max-width: 600px) {
   .header {
     width: 100%;
-
     justify-items: center;
     
   }
@@ -151,13 +150,12 @@ input[type="text"]:focus  {
     width: 60%;
     margin-left: 4%;
   }
-  .note {   
-    width: 150px;
-    margin: 2px;
-    
-  }
   .n-container {
     margin: 3px 4%;
+  }
+  .note {   
+    margin: 2px;
+    flex-grow: 1 auto;
   }
 
   .note-form {

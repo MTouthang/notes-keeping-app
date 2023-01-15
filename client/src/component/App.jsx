@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-
 import Header from "./Header"
 import Note from "./Note"
-
 import CreateNote  from './CreateNote'
 import { notesContext } from '../context/notesContext'
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 
 const App = () => {
   
@@ -29,7 +29,8 @@ const App = () => {
   }
   return (
     <>
-     <Header/> 
+    
+    <Header/> 
      <notesContext.Provider value={{notes, setNotes, addNote,noteDelete }}>
         <CreateNote/>
         <div className='n-container'>
@@ -43,6 +44,8 @@ const App = () => {
           }
         </div>
       
+     
+
      </notesContext.Provider>
      
     </>
