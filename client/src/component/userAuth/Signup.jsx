@@ -3,12 +3,12 @@ import "./authStyle.css"
 import Button from '@mui/material/Button';
 const Signup = () => {
   return (
-    <div className='sign-up-modal'>
+    <div className='user-modal'>
       <div className='s-container'>
         <h2> Signup </h2>
         <p> Kindly signup to save your notes !</p>
        
-        <input type="text" placeholder='Enter your Username...' />
+        <input type="text" placeholder='Enter your Username...' size="60"/>
 
       
         <input type="text" placeholder='Enter your email...' />

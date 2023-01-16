@@ -1,9 +1,9 @@
-.sign-up-modal {
-   
+.user-modal {
+   font-family: inherit;
     height: 89vh;
     width: 100%;
     position: absolute;
-    z-index: 10;
+    z-index: 5;
     border: 1px solid;
     /* From https://css.glass */
     background: rgba(255, 255, 255, 0.07);
@@ -13,6 +13,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .s-container {
+   
     width: 50%;
     height: 50%;
     margin: auto;
@@ -24,10 +25,48 @@
 }
 .s-container > input {
     margin-top: 10px;
+    border: 1px solid rgb(155, 152, 152);
+    padding: 15px;
+    font-size: 18px;
+   
 }
 .s-container > h2 {
     margin-bottom: 20px;
 }
 .s-container > Button {
     margin: 10px;
+}
+.exit {
+    right: 35%;
+    position: absolute;
+    z-index: 10;
+    top: 25%;
+    margin: 10px;
+    
+}
+.exit :hover {
+    cursor: pointer;
+    background-color: rgb(179, 177, 177);
+    border-radius: 10px;    
+}
+
+.exit-button > button {
+    margin: 2px;
+}
+
+@media only screen and (max-width: 600px){
+    .s-container {
+        width: 100%;
+    }
+    .s-container > input {
+        margin-top: 5px;
+        
+    }
+    .exit {
+        right: 20%;
+        position: absolute;
+        z-index: 10;
+        top: 33%;
+        margin: 10px;
+    }
 }
