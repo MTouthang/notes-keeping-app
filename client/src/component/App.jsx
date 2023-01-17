@@ -3,12 +3,21 @@ import Header from "./Header"
 import Note from "./Note"
 import CreateNote  from './CreateNote'
 import { notesContext } from '../context/notesContext'
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 
 
 const App = () => {
-  
+
+
   const [notes, setNotes] = useState([])
+ 
+  let userNa = true
+  
+  if(document.cookie){
+    userNa = false
+  }
+  
+
   /** note add function -- */
   function addNote(note){
     setNotes(prevNotes => {
@@ -30,24 +39,24 @@ const App = () => {
   return (
     <>
     
-    <Header/> 
-     <notesContext.Provider value={{notes, setNotes, addNote,noteDelete }}>
-        <CreateNote/>
-        <div className='n-container'>
-            {
-          notes.map((note, index) => {
-            return (
-              <Note id={index} key={index} note={note}
-              />
-            )
-          })
-          }
-        </div>
+      <Header userNa={userNa} /> 
+        <notesContext.Provider value={{notes, setNotes, addNote,noteDelete }}>
+          <CreateNote/>
+          <div className='n-container'>
+              {
+            notes.map((note, index) => {
+              return (
+                <Note id={index} key={index} note={note}
+                />
+              )
+            })
+            }
+          </div>
+        
       
-     
 
-     </notesContext.Provider>
-     
+        </notesContext.Provider>
+      
     </>
    
   )

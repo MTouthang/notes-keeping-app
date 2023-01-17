@@ -5,17 +5,31 @@ import Avatar from '@mui/material/Avatar';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// import { Link } from 'react-router-dom';
+
 import Signup from './userAuth/Signup';
 import Login from './userAuth/Login';
 import CloseIcon from '@mui/icons-material/Close';
 import Exit from './userAuth/Exit';
 
-const Header = () => {
+
+
+
+const Header = ({userNa}) => {
+
+  
 
   const [clickLogin, setClickLogin] = useState(false)
   const [clickSignUp, setClickSignUp] = useState(false)
+
+  // closing user login and signup modal
   const [exitClick, setExitClick] = useState(false)
+
+  // signup and signin button show/hide
+  const [toggle, setToggle] = useState(true)
+
+  // logout button hide/show
+  const [showLogout, setShowLogout] = useState(false)
+
 
   const loginModal = () => {
    setClickSignUp(false)
@@ -31,6 +45,7 @@ const Header = () => {
     exitClick ? setExitClick(false) : setExitClick(true)
   }
 
+
   return (
     <>
       <header className='header'>
@@ -42,9 +57,27 @@ const Header = () => {
           </IconButton>
         </div>
         <div className='nav-log'>
-          <Button variant="contained" color="success" startIcon={<AccountCircleIcon/>} onClick={loginModal}>Login</Button>
-          <Button variant="contained" color="success" startIcon={<AccountCircleIcon/>} onClick={signUpModal}> SignUp</Button>
-          <Button variant="contained" color='error'  startIcon={<Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 24, height: 24 }} />} onClick={logoutToggle}> logout</Button>
+
+          {
+          userNa && 
+            <>
+              { toggle && <Button variant="contained" color="success" startIcon={<AccountCircleIcon/>} onClick={loginModal}>Login</Button>}
+
+              {toggle && <Button variant="contained" color="success" startIcon={<AccountCircleIcon/>} onClick={signUpModal}> SignUp</Button>
+              } 
+            </>
+              
+          }
+          
+          {
+             (!userNa || showLogout) &&  <Button variant="contained" color='error'  startIcon={<Avatar sx={{ width: 26, height: 26 }} title={"profile"}>{}</Avatar>} onClick={logoutToggle}> logout</Button>
+          }
+             
+          
+         
+         
+       
+         
         </div>
     </header>
     {
@@ -53,7 +86,8 @@ const Header = () => {
          <div className='exit' onClick={() => setClickLogin(false)}>
             <CloseIcon />
           </div>
-        <Login/>
+       <Login loginSuccess={setClickLogin} setToggle = {setToggle} setShowLogout= {setShowLogout}/>
+      
       </div>
     }
     {
@@ -62,7 +96,7 @@ const Header = () => {
           <div className='exit' onClick={() => setClickSignUp(false)}>
           <CloseIcon />
           </div>
-        <Signup/>
+        <Signup exitSignUp = {setClickSignUp} showLogin={setClickLogin}/>
       </div>
     }
      {

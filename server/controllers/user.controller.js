@@ -1,9 +1,8 @@
-import { token } from "morgan";
 import config from "../config/index.js";
 import User from "../models/user.schema.js";
 import asyncHandler from "../services/asyncHandler.js";
 import CustomError from "../utils/customError.js";
-
+import validator from "validator";
 /********************************************
  * test home route
  *******************************************/
@@ -28,6 +27,11 @@ export const routeError = asyncHandler((req, res, next) => {
 export const signup = asyncHandler(async (req, res, next) => {
   const { userName, email, password } = req.body;
 
+  // validating email with validator
+  if (!validator.isEmail(email)) {
+    throw new CustomError('Please enter a valid email', 400)
+  }
+
   if (!userName || !email || !password) {
     // 400 Bad request - The request was malformed or invalid
     throw new CustomError("Please fill all fields", 400);
@@ -35,6 +39,7 @@ export const signup = asyncHandler(async (req, res, next) => {
 
   // check if user already exist with user email
   const userExist = await User.findOne({ email });
+
   if (userExist) {
     // Error 400 bad request - The request was malformed or invalid
     throw new CustomError(

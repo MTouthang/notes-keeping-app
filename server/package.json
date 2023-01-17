@@ -18,6 +18,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
     "swagger-ui-express": "^4.6.0",
+    "validator": "^13.7.0",
     "yamljs": "^0.3.0"
   }
 }

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Button } from '@mui/material'
+import axios from 'axios'
 
 const Exit = () => {
   const [toggle, setToggle] = useState(true)
@@ -8,8 +9,14 @@ const Exit = () => {
     toggle ? setToggle(false) : setToggle(true)
   }
 
-  const exitedReload = () => {
-    window.location.reload()
+  const exitedReload = async () => {
+    
+    const res = await axios.get("/auth/user/logout")
+
+    if(res.data.success){
+     window.location.reload()
+    }
+    
   }
 
   return (
