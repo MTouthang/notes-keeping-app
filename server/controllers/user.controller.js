@@ -29,7 +29,7 @@ export const signup = asyncHandler(async (req, res, next) => {
 
   // validating email with validator
   if (!validator.isEmail(email)) {
-    throw new CustomError('Please enter a valid email', 400)
+    throw new CustomError("Please enter a valid email", 400);
   }
 
   if (!userName || !email || !password) {
@@ -132,5 +132,25 @@ export const logout = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Logged Out successfully",
+  });
+});
+
+/******************************************
+ * @getUserInform
+ * @route http://localhost:8080/api/v1/auth/user/info
+ * @description get user information by passing user id
+ * @parameters
+ * @return { object } objects of userInformation
+ ******************************************/
+export const getUserInfo = asyncHandler(async (req, res, next) => {
+  const data = await User.findById(req.user._id).select("-password");
+
+  if (!data) {
+    throw new CustomError("User information not able to fetch", 400);
+  }
+
+  res.status(200).json({
+    success: true,
+    data,
   });
 });

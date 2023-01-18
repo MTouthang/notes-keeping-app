@@ -2,10 +2,10 @@ import express from "express";
 const router = express.Router();
 
 import {
+  getUserInfo,
   home,
   login,
   logout,
-  routeError,
   signup,
 } from "../controllers/user.controller.js";
 // middleware
@@ -18,6 +18,7 @@ router.route("/").get(isLogin, home);
 router.route("/auth/user/signup").post(signup);
 router.route("/auth/user/login").post(login);
 router.route("/auth/user/logout").get(logout);
+router.route("/auth/user/info").get(isLogin, getUserInfo);
 
 // error route
 // router.route("*").get(routeError);
