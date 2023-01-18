@@ -3,6 +3,7 @@ import { notesContext } from '../context/notesContext'
 import AddIcon from '@mui/icons-material/Add';
 import { Fab } from '@mui/material';
 import { Zoom } from '@mui/material';
+import axios from 'axios';
 
 
 const CreateNote = () => {
@@ -19,10 +20,6 @@ const CreateNote = () => {
   // handling the change value of title and content
   const handleChange = (event) => {
     const {name, value} = event.target
-    // setNote({
-    //     ...note,
-    //     [name]: value
-    // } )
 
     setNote(prevNote => {
       return {
@@ -34,13 +31,34 @@ const CreateNote = () => {
   }
   
  /** Pass the new note back to the app */
-  const submitNote = (event) => {
+  const submitNote = async(event) => {
     event.preventDefault()
-    addNote(note)
-    setNote({
-      title:"",
-      content: ""
-    })
+
+    const {title, content} = note
+
+    if(!title && !content) {
+      alert('Both field are required!')
+    } else {
+      try {
+        const res = await axios.post("/user/note", note)
+        if(res.data.success){
+          //TODO: note added 
+          console.log("note added ")
+        }
+      } catch (error) {
+        // TODO: log the error
+        console.log("Note not save to database login to save it")
+        alert("Note not save to database login to save it")
+      }
+  
+      addNote(note)
+      setNote({
+        title:"",
+        content: ""
+      })
+    }
+
+   
   }
 
   const expand = () =>{

@@ -67,6 +67,7 @@ body {
 .note h1 {
   font-size: 1.1em;
   margin-bottom: 6px;
+  width: 85%;
 }
 .note p {
   font-size: 1.1em;
@@ -136,6 +137,10 @@ input {
 input[type="text"]:focus  {
   outline: none;
 }
+.note-list-toggle{
+  text-align: center;
+}
+
 
 
 @media only screen and (max-width: 600px) {
@@ -158,6 +163,7 @@ input[type="text"]:focus  {
     margin: 2px;
     flex-grow: 1 auto;
   }
+
 
   .note-form {
     margin: 0 4%;

@@ -18,16 +18,12 @@ const Login = ({loginSuccess, setToggle, setShowLogout}) => {
         email : email,
         password: password
       }
-
       const res = await axios.post("/auth/user/login", data)
-      
-      
       if(res.data.success){
-        
         loginSuccess(false)
         setToggle(false)
         setShowLogout(true)
-     
+        window.location.reload()
       
       }
 
