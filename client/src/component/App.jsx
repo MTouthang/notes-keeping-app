@@ -5,11 +5,16 @@ import CreateNote  from './CreateNote'
 import { notesContext } from '../context/notesContext'
 import axios from 'axios'
 import { Button } from '@mui/material'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toastOptions } from '../toastOption'
+import { apiEndPoint } from '../api'
 
 
 const App = () => {
   const [notes, setNotes] = useState([])
   const [searchNote, setSearchNote] = useState()
+  const [userInfo, setUserInfo] = useState()
 
 
  
@@ -17,14 +22,27 @@ const App = () => {
   let userNa = true
   const getAllNotes = async () => {
     try {
-      const res = await axios.get("/user/notes");
+      const res = await axios.get(`${apiEndPoint}/user/notes`);
     
       if(res.data.success){
         setNotes(res.data.notes)
       }
     } catch (error) {
+      toast.error(error.response.data.message, toastOptions)
+    }
+  };
+
+  // get userInfo
+  const getUserInfo = async () => {
+    try {
+      const res = await axios.get(`${apiEndPoint}/auth/user/info`);
+    
+      if(res.data.success){
+       setUserInfo(res.data.data)
+      }
+    } catch (error) {
       //TODO: 1 login first
-      alert(error.response.data.message)
+      toast.error("Login first!", toastOptions)
     }
   };
   if(document.cookie){
@@ -34,7 +52,11 @@ const App = () => {
 
   
   useEffect(() => {
-    getAllNotes()
+    if(document.cookie){
+      getUserInfo()
+      getAllNotes()
+     
+    } 
   }, [])
 
   /** note add function -- */
@@ -45,24 +67,33 @@ const App = () => {
         note
       ]
     })
-    getAllNotes()
+    if(userInfo){
+      getAllNotes()
+    }
   }
 
   /** note delete */
   const noteDelete =async (id) => {
   
     // request to delete note
-    try {
-      const res = await axios.delete(`/user/note/${id}`)
-      console.log(res.data.message)
-    } catch (error) {
-      //TODO: 2 change alert 
-      console.log(error)
-    }
+    if(userInfo){
+      try {
+        const res = await axios.delete(`${apiEndPoint}/user/note/${id}`)
+        console.log(res.data.message)
+        if(res.data.success){
+          toast.success("Note deleted", toastOptions)
+        }
+      } catch (error) {
+        toast.error("Note not able to delete", toastOptions)
+      }
+    } 
+ 
     setNotes(prevNotes => {
+      !userInfo && toast.success("note deleted locally!", toastOptions)
       return prevNotes.filter((noteItem, index) =>{
         return index !==id
       })
+     
     })
 
     if(searchNote){
@@ -74,15 +105,15 @@ const App = () => {
       })
     }
    
-   getAllNotes()
-  
+    if(userInfo){
+      getAllNotes()
+    }
   }
-
 
   // search features
   const searchFunction = async(item) => {
     try {
-      const res = await axios.get(`/user/note?title=${item}`)
+      const res = await axios.get(`${apiEndPoint}/user/note?title=${item}`)
       if(res.data.success){
         console.log(res.data.note)
          setSearchNote(res.data.note)
@@ -94,13 +125,26 @@ const App = () => {
 
     }
   }
-  
 
+  
+  
   return (
     <>
-    
-     
-        <notesContext.Provider value={{notes, setNotes, addNote,noteDelete, setSearchNote, searchNote, searchFunction }}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
+      <ToastContainer />
+
+        <notesContext.Provider value={{notes, setNotes, addNote,noteDelete, setSearchNote, searchNote, searchFunction, userInfo }}>
         <Header userNa={userNa} /> 
           { 
             searchNote ? " ":  <CreateNote/>
@@ -108,10 +152,10 @@ const App = () => {
           <div className='note-list-toggle'> 
             { searchNote && <Button disabled> All search notes! </Button> }
             
-            <span>
+            <span className='all-notes-button'>
               {searchNote ? 
-                 <Button onClick={() => window.location.reload()} 
-                 >All Notes </Button> : <Button onClick={() => window.location.reload()} disabled
+                 <Button  onClick={() => window.location.reload()} 
+                 > All Notes</Button> : <Button onClick={() => window.location.reload()} disabled
                  >All Notes </Button> 
               }
               {
@@ -135,32 +179,24 @@ const App = () => {
                   searchNote.map((note, index) => {
                     return (
                       <>
-                      <Note id={note._id} key={index} note={note}
+                      <Note id={note._id ? note._id : index} key={index} note={note}
                       />
                       </>
-                      
                     )
                   })
                 ) : 
                 (
                   notes.map((note, index) => {
                     return (
-                      <Note id={note._id} key={index} note={note}
+                      <Note id={note._id ? note._id : index} key={index} note={note}
                       />
                     )
                   })
                 )
-
-              
              }
           </div>
-        
-      
-
         </notesContext.Provider>
-      
     </>
-   
   )
 }
 

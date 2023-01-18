@@ -4,6 +4,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab } from '@mui/material';
 import { Zoom } from '@mui/material';
 import axios from 'axios';
+import { toastOptions } from '../toastOption';
+import { toast } from 'react-toastify';
+import { apiEndPoint } from '../api';
 
 
 const CreateNote = () => {
@@ -11,7 +14,7 @@ const CreateNote = () => {
   const [isExpanded, setExpanded] = useState(false)
 
   /** constant to track of title and content*/
-  const {addNote} = useContext(notesContext)
+  const {addNote, userInfo} = useContext(notesContext)
   const [note, setNote] = useState({
     title: "",  
     content: ""
@@ -37,18 +40,16 @@ const CreateNote = () => {
     const {title, content} = note
 
     if(!title && !content) {
-      alert('Both field are required!')
+      toast.error("Both field are required!", toastOptions)
     } else {
       try {
-        const res = await axios.post("/user/note", note)
+        const res = await axios.post(`${apiEndPoint}/user/note`, note)
         if(res.data.success){
-          //TODO: note added 
-          console.log("note added ")
+          toast.success("note added", toastOptions)
         }
       } catch (error) {
-        // TODO: log the error
-        console.log("Note not save to database login to save it")
-        alert("Note not save to database login to save it")
+        toast("note added but not save. Login to save", toastOptions)
+ 
       }
   
       addNote(note)
@@ -63,6 +64,7 @@ const CreateNote = () => {
 
   const expand = () =>{
     setExpanded(true)
+    !userInfo && toast("Login or SignUp to save your note!", toastOptions)
   }
 
   return (

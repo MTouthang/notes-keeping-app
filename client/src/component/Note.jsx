@@ -4,32 +4,38 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { toastOptions } from '../toastOption';
+import { apiEndPoint } from '../api';
 
 
 
 const Note = ({id, note}) => {
 
-  const {noteDelete} = useContext(notesContext)
+  const {noteDelete, userInfo} = useContext(notesContext)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+
   
   const handleDelete = () => {
-    noteDelete(id)
+      noteDelete(id)
   }
 
   const update = async(id) => {
-   
-      try {
-        const res = await axios.put(`/user/note/${id}`, {
-          title: title ? title : note.title ,
-          content: content ? content : note.content 
-        })
-       if(res.data.success){
-        //TODO: 3 alert change
-        alert("updated successfully")
-       }
-      } catch (error) {
-        console.log(error)
+      if(userInfo){
+        try {
+          const res = await axios.put(`${apiEndPoint}/user/note/${id}`, {
+            title: title ? title : note.title ,
+            content: content ? content : note.content 
+          })
+         if(res.data.success){
+          toast.success("note updated", toastOptions)
+         }
+        } catch (error) {
+          toast.error("Note not updated", toastOptions)
+        }
+      } else {
+        toast("updated temporary", toastOptions)
       }
       setTitle("")
       setContent("")

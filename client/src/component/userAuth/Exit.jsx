@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import { Button } from '@mui/material'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import { toastOptions } from '../../toastOption'
+import { apiEndPoint } from '../../api'
 
 const Exit = () => {
   const [toggle, setToggle] = useState(true)
@@ -11,11 +14,20 @@ const Exit = () => {
 
   const exitedReload = async () => {
     
-    const res = await axios.get("/auth/user/logout")
-
-    if(res.data.success){
-     window.location.reload()
+    try { 
+      const res = await axios.get(`${apiEndPoint}/auth/user/logout`)
+      if(res.data.success){
+        toast.success("Logout successfully", toastOptions)
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+       
+       }
+    } catch (error) {
+      toast.error("failed to logout")
     }
+    
+   
     
   }
 

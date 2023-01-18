@@ -11,12 +11,12 @@ import Login from './userAuth/Login';
 import CloseIcon from '@mui/icons-material/Close';
 import Exit from './userAuth/Exit';
 import { notesContext } from '../context/notesContext';
+import { toast } from 'react-toastify';
+import { toastOptions } from '../toastOption';
 
 
 const Header = ({userNa}) => {
-
-
-
+  
   const [clickLogin, setClickLogin] = useState(false)
   const [clickSignUp, setClickSignUp] = useState(false)
   // closing user login and signup modal
@@ -40,32 +40,17 @@ const Header = ({userNa}) => {
     exitClick ? setExitClick(false) : setExitClick(true)
   }
 
-    // search features
-    const {searchFunction} = useContext(notesContext)
+    // search features and userInfo
+    const {searchFunction, userInfo} = useContext(notesContext)
     const [searchItem, setSearchItem] = useState("")
   // search note by title
   const search = async (item) => {
-
-    // try {
-    //   const res = await axios.get(`/user/note?title=${item}`)
-    //   console.log(res)
-    //   if(res.data.success){
-    //     console.log(res.data.note)
-    //      setSearchNote(res.data.note)
-    //   }
-    // } catch (error) {
-   
-    //   // TODO: display smothly
-    //   console.log("note items note able to search")
-
-    // }
-    searchFunction(item)
-    
-    setSearchItem("")
+    if(userInfo){
+      searchFunction(item)
+    }
+    !userInfo && toast.error("Login first!", toastOptions)
     
   }
-
-  
 
   return (
     <>
@@ -78,10 +63,9 @@ const Header = ({userNa}) => {
                 <IconButton aria-label="search" title="search note" onClick={() => search(searchItem)}>
                   <SearchIcon/>
                 </IconButton>
-              
             }
-            
         </div>
+
         <div className='nav-log'>
           {
           userNa && 
@@ -93,7 +77,7 @@ const Header = ({userNa}) => {
             </> 
           }
           {
-             (!userNa || showLogout) &&  <Button variant="contained" color='error'  startIcon={<Avatar sx={{ width: 26, height: 26 }} title={"profile"}>{}</Avatar>} onClick={logoutToggle}> logout</Button>
+             (!userNa || showLogout) &&  <Button variant="contained" color='error'  startIcon={<Avatar sx={{ width: 26, height: 26 }} title={userInfo ? userInfo.userName : 'profile'}>{userInfo ? userInfo.userName.charAt(0) : " "}</Avatar>} onClick={logoutToggle}> logout</Button>
           }
         </div>
     </header>

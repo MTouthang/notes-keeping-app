@@ -2,6 +2,9 @@ import React, {useState} from 'react'
 import "./authStyle.css"
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { toastOptions } from '../../toastOption';
+import { apiEndPoint } from '../../api';
 
 
 
@@ -12,14 +15,13 @@ const Signup = ({exitSignUp, showLogin}) => {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState()
 
- 
-
+  // const {userInfo} = useContext(notesContext)
 
   const signUpSubmit = async(e) => {
     e.preventDefault()
 
     if(password !== confirmPassword){
-      alert("Password not matched")
+      toast.error("Password does not matched with confirm password", toastOptions)
     } else {
       try {
         const userData = {
@@ -28,17 +30,23 @@ const Signup = ({exitSignUp, showLogin}) => {
           password: password
         }
 
-       const res = await axios.post("/auth/user/signup", userData)
+       const res = await axios.post(`${apiEndPoint}/auth/user/signup`, userData)
+       
 
        if (res.data.success){
+        // TODO: put login username
+        toast.success("Signup successful. Login...", toastOptions)
         exitSignUp(false)
-        showLogin(true)
-        window.location.reload()
+        
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000);
+        
        }
 
       } catch (error) {
-        console.log(error)
-        alert(error.response.data.message)
+        toast.error(error.response.data.message, toastOptions)
+        
       }
       
     }

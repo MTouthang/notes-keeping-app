@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import { Button } from '@mui/material'
 import axios from 'axios'
-
+import { toast } from 'react-toastify'
+import { toastOptions } from '../../toastOption'
+import { apiEndPoint } from '../../api'
 
 
 
@@ -18,17 +20,21 @@ const Login = ({loginSuccess, setToggle, setShowLogout}) => {
         email : email,
         password: password
       }
-      const res = await axios.post("/auth/user/login", data)
+      const res = await axios.post(`${apiEndPoint}/auth/user/login`, data)
       if(res.data.success){
+        toast.success("Login successful", toastOptions)
         loginSuccess(false)
         setToggle(false)
         setShowLogout(true)
-        window.location.reload()
+        setTimeout (() =>{
+          window.location.reload()
+        }, 1000)
+       
       
       }
 
     } catch (error) {
-      alert(error.response.data.message)
+      toast.error(error.response.data.message, toastOptions)
     }
 
   }
