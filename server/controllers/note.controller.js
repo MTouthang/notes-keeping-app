@@ -138,8 +138,6 @@ export const updateNote = asyncHandler(async (req, res, next) => {
     { new: true }
   );
 
-  console.log("update Note - ", updateNote);
-
   if (!updateNote) {
     // 400 bad request - The request was malformed or invalid
     throw new CustomError("note unable to update", 400);

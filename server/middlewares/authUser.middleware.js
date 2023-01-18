@@ -23,7 +23,7 @@ export const isLogin = asyncHandler(async (req, res, next) => {
   }
   if (!token) {
     // 401 Unauthorized - The client is not authorized to access the requested resource
-    throw new CustomError("Login first to access this page", 401);
+    throw new CustomError("Login/signup to save/load notes", 401);
   }
 
   try {
