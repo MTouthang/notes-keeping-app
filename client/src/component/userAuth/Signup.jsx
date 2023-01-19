@@ -37,10 +37,10 @@ const Signup = ({exitSignUp, showLogin}) => {
         // TODO: put login username
         toast.success("Signup successful. Login...", toastOptions)
         exitSignUp(false)
-        
-        setTimeout(() => {
-          window.location.reload()
-        }, 3000);
+        // TODO: reload check
+        // setTimeout(() => {
+        //   window.location.reload()
+        // }, 3000);
         
        }
 

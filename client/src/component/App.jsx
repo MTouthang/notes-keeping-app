@@ -16,7 +16,7 @@ const App = () => {
   const [searchNote, setSearchNote] = useState()
   const [userInfo, setUserInfo] = useState()
 
-
+  //TODO: add bearers token --
  
   /** check for cookies and load page */
   let userNa = true
@@ -126,8 +126,6 @@ const App = () => {
     }
   }
 
-  
-  
   return (
     <>
       <ToastContainer

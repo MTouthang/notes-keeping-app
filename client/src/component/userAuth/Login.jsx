@@ -26,9 +26,10 @@ const Login = ({loginSuccess, setToggle, setShowLogout}) => {
         loginSuccess(false)
         setToggle(false)
         setShowLogout(true)
-        setTimeout (() =>{
-          window.location.reload()
-        }, 1000)
+        // TODO: reload page 
+        // setTimeout (() =>{
+        //   window.location.reload()
+        // }, 1000)
        
       
       }
