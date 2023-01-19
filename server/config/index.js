@@ -8,10 +8,8 @@ const config = {
   MONGODB_URL: process.env.MONGODB_URL,
   cookieOption: {
     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-    // httpOnly: true,
-    domain: ".railway.app",
-    secure: true,
-    sameSte: "none",
+    httpOnly: true,
+    
   },
 };
 
