@@ -11,6 +11,7 @@ import { toastOptions } from '../toastOption'
 import { apiEndPoint } from '../api'
 
 
+
 const App = () => {
   const [notes, setNotes] = useState([])
   const [searchNote, setSearchNote] = useState()
@@ -45,8 +46,10 @@ const App = () => {
       toast.error("Login first!", toastOptions)
     }
   };
-  if(document.cookie){
+  if(document.cookie.includes("token=")){
     // cookie present flag
+    console.log(document.cookie)
+    
     userNa = false
   }
 
