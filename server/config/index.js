@@ -11,6 +11,7 @@ const config = {
     // httpOnly: true,
     domain: "notes-keeping-app-production.up.railway.app",
     secure: true,
+    sameSte: "none",
   },
 };
 
