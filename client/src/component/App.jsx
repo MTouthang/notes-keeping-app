@@ -21,6 +21,7 @@ const App = () => {
   // user flag
   let userNa = true
 
+  console.log(document.cookie)
   const getAllNotes = async () => {
 
     try {
