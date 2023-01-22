@@ -7,6 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { toastOptions } from '../toastOption';
 import { apiEndPoint } from '../api';
+import { getToken } from '../appCookie';
 
 
 
@@ -15,6 +16,7 @@ const Note = ({id, note}) => {
   const {noteDelete, userInfo} = useContext(notesContext)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+  
 
   
   const handleDelete = () => {
@@ -28,7 +30,7 @@ const Note = ({id, note}) => {
             title: title ? title : note.title ,
             content: content ? content : note.content 
           }, {
-            headers: {'Authorization': `Bearer ${document.cookie.slice(6)}`}
+            headers: {'Authorization': `Bearer ${getToken()}`}
           })
          if(res.data.success){
           toast.success("note updated", toastOptions)
@@ -43,10 +45,16 @@ const Note = ({id, note}) => {
       setContent("")
   }
 
+ 
+
   
   return (
   
     <div className='note'>
+      {
+        
+      }
+      <div className='note-date'>{new Date(note.updatedAt).toLocaleString()}</div>
       {
         (title || content ) && 
 
@@ -60,7 +68,7 @@ const Note = ({id, note}) => {
        
       > 
       {note.title}</h1>
-      <p
+      <p className="note-content"
          contentEditable={true}
          suppressContentEditableWarning={true}
          onInput={(e) => setContent(e.target.innerHTML)}
@@ -68,6 +76,7 @@ const Note = ({id, note}) => {
         {note.content}
         </p>
       <IconButton onClick={handleDelete} title="delete note"><DeleteIcon/></IconButton>
+      
     </div>
  
   )

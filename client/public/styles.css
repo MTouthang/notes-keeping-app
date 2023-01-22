@@ -87,6 +87,11 @@ body {
   cursor: pointer;
   outline: none;
 }
+.note-date {
+  font-size: 0.8em;
+  color: #828482;
+  margin-bottom: 5px;
+}
 
 form.create-note {
   position: relative;

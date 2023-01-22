@@ -41,7 +41,7 @@ const CreateNote = () => {
 
     const {title, content} = note
 
-    if(!title && !content) {
+    if(!title || !content) {
       toast.error("Both field are required!", toastOptions)
     } else {
       try {
