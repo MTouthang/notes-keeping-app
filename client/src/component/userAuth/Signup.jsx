@@ -40,8 +40,8 @@ const Signup = ({exitSignUp, showLogin}) => {
         // TODO: reload check
         // setTimeout(() => {
         //   window.location.reload()
-        // }, 3000);
-        
+        // }, 1000);
+        showLogin(true)
        }
 
       } catch (error) {

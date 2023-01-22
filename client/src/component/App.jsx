@@ -17,14 +17,17 @@ const App = () => {
   const [searchNote, setSearchNote] = useState()
   const [userInfo, setUserInfo] = useState()
 
-  //TODO: add bearers token --
  
-  /** check for cookies and load page */
+  // user flag
   let userNa = true
+
   const getAllNotes = async () => {
+
     try {
-      const res = await axios.get(`${apiEndPoint}/user/notes`);
-    
+      const res = await axios.get(`${apiEndPoint}/user/notes`, {
+       headers: {'Authorization': `Bearer ${document.cookie.slice(6)}`}
+    });
+      
       if(res.data.success){
         setNotes(res.data.notes)
       }
@@ -36,30 +39,31 @@ const App = () => {
   // get userInfo
   const getUserInfo = async () => {
     try {
-      const res = await axios.get(`${apiEndPoint}/auth/user/info`);
+      const res = await axios.get(`${apiEndPoint}/auth/user/info`, {
+        headers: {
+          'Authorization': `Bearer ${document.cookie.slice(6)}`}
+      });
     
       if(res.data.success){
        setUserInfo(res.data.data)
+     
       }
     } catch (error) {
-      //TODO: 1 login first
       toast.error("Login first!", toastOptions)
     }
   };
-  if(document.cookie.includes("token=")){
-    // cookie present flag
-    console.log(document.cookie)
-    
+  if(document.cookie.includes("token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")){
     userNa = false
   }
-
+  
   
   useEffect(() => {
-    if(document.cookie){
+    if(document.cookie.includes("token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")){
+      // cookie present flag
+      
       getUserInfo()
       getAllNotes()
-     
-    } 
+    }
   }, [])
 
   /** note add function -- */
@@ -77,11 +81,13 @@ const App = () => {
 
   /** note delete */
   const noteDelete =async (id) => {
-  
     // request to delete note
     if(userInfo){
       try {
-        const res = await axios.delete(`${apiEndPoint}/user/note/${id}`)
+        const res = await axios.delete(`${apiEndPoint}/user/note/${id}`,  {
+          headers: {
+            'Authorization': `Bearer ${document.cookie.slice(6)}`}
+        })
         console.log(res.data.message)
         if(res.data.success){
           toast.success("Note deleted", toastOptions)
@@ -116,18 +122,19 @@ const App = () => {
   // search features
   const searchFunction = async(item) => {
     try {
-      const res = await axios.get(`${apiEndPoint}/user/note?title=${item}`)
+      const res = await axios.get(`${apiEndPoint}/user/note?title=${item}`, {
+        headers: {
+          'Authorization': `Bearer ${document.cookie.slice(6)}`}
+      })
       if(res.data.success){
-        console.log(res.data.note)
+      
          setSearchNote(res.data.note)
       }
     } catch (error) {
-   
-      // TODO: display smothly
-      console.log("note items note able to search")
-
+      toast("Unable to search notes")
     }
   }
+ 
 
   return (
     <>

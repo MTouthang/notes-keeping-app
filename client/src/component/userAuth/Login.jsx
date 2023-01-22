@@ -4,10 +4,15 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { toastOptions } from '../../toastOption'
 import { apiEndPoint } from '../../api'
+import { setCookie } from '../../appCookie'
+
+
 
 
 
 const Login = ({loginSuccess, setToggle, setShowLogout}) => {
+
+
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
@@ -26,21 +31,18 @@ const Login = ({loginSuccess, setToggle, setShowLogout}) => {
         loginSuccess(false)
         setToggle(false)
         setShowLogout(true)
-        // TODO: reload page 
-        // setTimeout (() =>{
-        //   window.location.reload()
-        // }, 1000)
-       
-      
+        setCookie(res.data.token) 
+
+        setTimeout (() =>{
+          window.location.reload()
+        }, 1000)
+        
       }
 
     } catch (error) {
-      toast.error(error.response.data.message, toastOptions)
+     toast.error(error.response.data.message, toastOptions)
     }
-
   }
-  
-  //TODO: login page shown after signup - 
 
   return  (
     <div className='user-modal'>

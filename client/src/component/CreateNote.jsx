@@ -15,6 +15,7 @@ const CreateNote = () => {
 
   /** constant to track of title and content*/
   const {addNote, userInfo} = useContext(notesContext)
+  
   const [note, setNote] = useState({
     title: "",  
     content: ""
@@ -43,7 +44,10 @@ const CreateNote = () => {
       toast.error("Both field are required!", toastOptions)
     } else {
       try {
-        const res = await axios.post(`${apiEndPoint}/user/note`, note)
+        const res = await axios.post(`${apiEndPoint}/user/note`, note , {
+          headers: {
+            'Authorization': `Bearer ${document.cookie.slice(6)}`}
+        })
         if(res.data.success){
           toast.success("note added", toastOptions)
         }
@@ -65,6 +69,7 @@ const CreateNote = () => {
   const expand = () =>{
     setExpanded(true)
     !userInfo && toast("Login or SignUp to save your note!", toastOptions)
+    
   }
 
   return (

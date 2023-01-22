@@ -27,6 +27,8 @@ const Note = ({id, note}) => {
           const res = await axios.put(`${apiEndPoint}/user/note/${id}`, {
             title: title ? title : note.title ,
             content: content ? content : note.content 
+          }, {
+            headers: {'Authorization': `Bearer ${document.cookie.slice(6)}`}
           })
          if(res.data.success){
           toast.success("note updated", toastOptions)

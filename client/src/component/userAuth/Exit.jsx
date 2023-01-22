@@ -4,6 +4,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { toastOptions } from '../../toastOption'
 import { apiEndPoint } from '../../api'
+import { clearCookie } from '../../appCookie'
 
 const Exit = () => {
   const [toggle, setToggle] = useState(true)
@@ -17,7 +18,9 @@ const Exit = () => {
     try { 
       const res = await axios.get(`${apiEndPoint}/auth/user/logout`)
       if(res.data.success){
+        
         toast.success("Logout successfully", toastOptions)
+        clearCookie()
         setTimeout(() => {
           window.location.reload()
         }, 2000);
@@ -26,9 +29,6 @@ const Exit = () => {
     } catch (error) {
       toast.error("failed to logout")
     }
-    
-   
-    
   }
 
   return (

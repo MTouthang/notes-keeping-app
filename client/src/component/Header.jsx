@@ -41,8 +41,8 @@ const Header = ({userNa}) => {
   }
 
     // search features and userInfo
-    const {searchFunction, userInfo} = useContext(notesContext)
-    const [searchItem, setSearchItem] = useState("")
+  const {searchFunction, userInfo} = useContext(notesContext)
+  const [searchItem, setSearchItem] = useState("")
   // search note by title
   const search = async (item) => {
     if(userInfo){
