@@ -7,6 +7,7 @@ import axios from 'axios';
 import { toastOptions } from '../toastOption';
 import { toast } from 'react-toastify';
 import { apiEndPoint } from '../api';
+import { getToken } from '../appCookie';
 
 
 const CreateNote = () => {
@@ -46,7 +47,7 @@ const CreateNote = () => {
       try {
         const res = await axios.post(`${apiEndPoint}/user/note`, note , {
           headers: {
-            'Authorization': `Bearer ${document.cookie.slice(6)}`}
+            'Authorization': `Bearer ${getToken()}`}
         })
         if(res.data.success){
           toast.success("note added", toastOptions)

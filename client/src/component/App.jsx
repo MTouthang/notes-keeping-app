@@ -9,6 +9,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toastOptions } from '../toastOption'
 import { apiEndPoint } from '../api'
+import { getToken } from '../appCookie'
 
 
 
@@ -21,12 +22,12 @@ const App = () => {
   // user flag
   let userNa = true
 
-  console.log(document.cookie)
+
   const getAllNotes = async () => {
 
     try {
       const res = await axios.get(`${apiEndPoint}/user/notes`, {
-       headers: {'Authorization': `Bearer ${document.cookie.slice(6)}`}
+       headers: {'Authorization': `Bearer ${getToken()}`}
     });
       
       if(res.data.success){
@@ -42,7 +43,7 @@ const App = () => {
     try {
       const res = await axios.get(`${apiEndPoint}/auth/user/info`, {
         headers: {
-          'Authorization': `Bearer ${document.cookie.slice(6)}`}
+          'Authorization': `Bearer ${getToken()}`}
       });
     
       if(res.data.success){
@@ -87,7 +88,7 @@ const App = () => {
       try {
         const res = await axios.delete(`${apiEndPoint}/user/note/${id}`,  {
           headers: {
-            'Authorization': `Bearer ${document.cookie.slice(6)}`}
+            'Authorization': `Bearer ${getToken()}`}
         })
         console.log(res.data.message)
         if(res.data.success){
@@ -125,7 +126,7 @@ const App = () => {
     try {
       const res = await axios.get(`${apiEndPoint}/user/note?title=${item}`, {
         headers: {
-          'Authorization': `Bearer ${document.cookie.slice(6)}`}
+          'Authorization': `Bearer ${getToken()}`}
       })
       if(res.data.success){
       

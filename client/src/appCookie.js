@@ -7,3 +7,12 @@ export const setCookie = (userToken) => {
 export const clearCookie = () => {
   document.cookie = `token="";expires=${new Date(0).toUTCString()}`;
 };
+
+export const getToken = () => {
+  let cookieArray = document.cookie.split(";");
+
+  const token = cookieArray.filter((item) => {
+    return item.includes("token");
+  });
+  return token[0].trim().slice(6);
+};
