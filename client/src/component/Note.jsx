@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import { toastOptions } from '../toastOption';
 import { apiEndPoint } from '../api';
 import { getToken } from '../appCookie';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+
 
 
 
@@ -16,9 +18,14 @@ const Note = ({id, note}) => {
   const {noteDelete, userInfo} = useContext(notesContext)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
-  
+  const [theme, setTheme] = useState(false)
 
-  
+  const [bgColor, setBgColor] = useState("")
+  const [ fontColor, setFontColor] = useState("")
+
+
+
+
   const handleDelete = () => {
       noteDelete(id)
   }
@@ -45,16 +52,45 @@ const Note = ({id, note}) => {
       setContent("")
   }
 
- 
+  const getTheme = () => {
+    theme ? setTheme(false) : setTheme(true)
+  }
 
-  
-  return (
-  
-    <div className='note'>
-      {
-        
+  const customStyle = {
+    color:  fontColor ? fontColor : note.fontColor,
+    backgroundColor: bgColor ? bgColor : note.bgColor
+  }
+
+  const updateColor = async () => {
+    if(userInfo){
+      try {
+        const res = await axios.put(`${apiEndPoint}/user/note/ui/${id}`, {
+          bgColor: bgColor ? bgColor : note.bgColor ,
+          fontColor: fontColor ? fontColor : note.fontColor 
+        }, {
+          headers: {'Authorization': `Bearer ${getToken()}`}
+        })
+       if(res.data.success){
+        toast.success("note color updated", toastOptions)
+       }
+      } catch (error) {
+        toast.error("Note color not updated", toastOptions)
       }
-      <div className='note-date'>{new Date(note.updatedAt).toLocaleString()}</div>
+    } else {
+      toast("updated temporary", toastOptions)
+    }
+  }
+
+  return (
+    <>
+  
+    <div className='note' style={customStyle }>
+      { userInfo && 
+        <div className='date-container'>
+          <div className='note-date date1' style={customStyle}>Created at - {new Date(note.createdAt).toLocaleString()}</div>
+          <div className='note-date' style={customStyle}>Updated at - {new Date(note.updatedAt).toLocaleString()}</div>
+        </div>
+      }
       {
         (title || content ) && 
 
@@ -76,9 +112,29 @@ const Note = ({id, note}) => {
         {note.content}
         </p>
       <IconButton onClick={handleDelete} title="delete note"><DeleteIcon/></IconButton>
+      <IconButton onClick={getTheme} title="delete note"><ColorLensIcon/></IconButton>
+      {
+        theme && 
+        <div className='theme-modal'  style={customStyle}>
+          <p>Background color -<span>
+            <input 
+            type="color" 
+            value={bgColor} 
+            onChange={(e) => setBgColor(e.target.value)}
+            /></span> </p>
+          <p>Font color - <span>
+            <input 
+            type="color" 
+            value={fontColor}
+            onChange={(e) => setFontColor(e.target.value)}
+            /></span> </p>
+          <IconButton title="update color" onClick={updateColor} ><CloudDoneIcon/></IconButton>
+        </div>
+      }
       
     </div>
- 
+    
+    </>
   )
 }
 

@@ -59,9 +59,12 @@ body {
   background: #fff;
   border-radius: 7px;
   box-shadow: 0 2px 5px #ccc;
+
+  
   padding: 10px;
   width: 300px;
   margin: 5px;
+  
   flex: 1 auto;
 }
 .note h1 {
@@ -87,10 +90,18 @@ body {
   cursor: pointer;
   outline: none;
 }
+.date-container {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  margin-bottom: 5px;
+  
+}
 .note-date {
   font-size: 0.8em;
-  color: #828482;
-  margin-bottom: 5px;
+  text-shadow: #000;
+  opacity: 0.6;
+}
+.date1 {
+  padding-left: 2px;
 }
 
 form.create-note {
@@ -147,8 +158,29 @@ input[type="text"]:focus  {
   text-align: center;
 }
 
+.theme-modal {
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 0;
+  padding: 8px;
+}
+.theme-modal input {
+  width: 20px;
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  outline: none;
+  border-radius: 50%;
+  background-color: #000;
 
-
+}
+.theme-modal p {
+  padding: 0;
+  margin: 0;
+  font-size: 0.8em;
+}
 
 @media only screen and (max-width: 600px) {
   .header {
