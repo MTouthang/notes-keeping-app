@@ -179,3 +179,43 @@ export const searchNote = asyncHandler(async (req, res, next) => {
     note,
   });
 });
+
+/******************************************
+ * @noteCustomColor
+ * @route http://localhost:8080/api/v1/user/note/id
+ * @description  set custom color to the background and font
+ * @parameters { String } note id
+ * @return {object} note object
+ ******************************************/
+export const noteColor = asyncHandler(async (req, res, next) => {
+  const { bgColor, fontColor } = req.body;
+
+  console.log(`color- ${bgColor}, ${fontColor}`);
+
+  if (bgColor === "" && fontColor === "") {
+    console.log(`testing true/false`);
+    throw new CustomError("At least one of the field must be change", 400);
+  }
+
+  const user = await Note.find({ author: req.user._id });
+  if (user.length <= 0) {
+    throw new CustomError("No notes is found!", 400);
+  }
+
+  const data = await Note.findByIdAndUpdate(
+    req.params.id,
+    { bgColor: bgColor, fontColor: fontColor },
+    {
+      new: true,
+    }
+  );
+
+  if (!data) {
+    throw new CustomError("Not able to add Custom Color", 400);
+  }
+
+  res.status(200).json({
+    success: true,
+    data,
+  });
+});
