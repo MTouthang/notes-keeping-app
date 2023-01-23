@@ -112,7 +112,7 @@ const Note = ({id, note}) => {
         {note.content}
         </p>
       <IconButton onClick={handleDelete} title="delete note"><DeleteIcon/></IconButton>
-      <IconButton onClick={getTheme} title="delete note"><ColorLensIcon/></IconButton>
+      <IconButton onClick={getTheme} title="change color"><ColorLensIcon/></IconButton>
       {
         theme && 
         <div className='theme-modal'  style={customStyle}>
