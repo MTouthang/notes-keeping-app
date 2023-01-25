@@ -63,8 +63,8 @@ const Signup = ({exitSignUp, showLogin}) => {
        <p> Kindly signup to save your notes !</p>
        <input type="text" name='userName' value={userName} placeholder='Enter your Username...' onChange={(e)=>setUserName(e.target.value)} />
        <input type="email" name='email' value={email} placeholder='Enter your email...' onChange={(e) => setEmail(e.target.value)} />
-       <input type="text" name="password" value={password} placeholder='Enter password...' onChange={(e) => setPassword(e.target.value)}/>
-       <input type="text" name="confirmPassword" value={confirmPassword} placeholder='confirm password...' onChange={(e) => setConfirmPassword(e.target.value)}/>
+       <input type="password" name="password" value={password} placeholder='Enter password...' onChange={(e) => setPassword(e.target.value)}/>
+       <input type="password" name="confirmPassword" value={confirmPassword} placeholder='confirm password...' onChange={(e) => setConfirmPassword(e.target.value)}/>
        <Button variant='contained' onClick={signUpSubmit}> Signup </Button>
      </div>
    </div>

@@ -2,7 +2,9 @@
 
 This project is a Notes keeping web application built with MERN stack
 ***
-![demo gif](./assests/demo.gif)
+![demo gif](https://media2.giphy.com/media/tf14B9to2BNBStlm2T/giphy.gif?cid=790b7611bba936c25a64e7b59d03b36732725e0e736e36e7&rid=giphy.gif&ct=g)
+***
+![demo gif](https://media0.giphy.com/media/a6Knf0LgsL1rFICsqU/giphy.gif?cid=790b76117a8500f103e3139f0efa427ab16615d61bc87438&rid=giphy.gif&ct=g)
 
 ## Tech stack
 ***

@@ -50,7 +50,7 @@ const Login = ({loginSuccess, setToggle, setShowLogout}) => {
         <h2> Login </h2>
         <p> Kindly Login to see and add notes!</p>
         <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Enter your Email...' />
-        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter Password...' />
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter Password...' />
         <Button variant='contained' onClick={loginSubmit}> Login </Button>
       </div>
     </div>
