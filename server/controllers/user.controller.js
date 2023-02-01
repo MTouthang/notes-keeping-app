@@ -32,9 +32,14 @@ export const signup = asyncHandler(async (req, res, next) => {
     throw new CustomError("Please enter a valid email", 400);
   }
 
+
   if (!userName || !email || !password) {
     // 400 Bad request - The request was malformed or invalid
     throw new CustomError("Please fill all fields", 400);
+  }
+
+  if(password.length <= 7) {
+    throw new CustomError("Password must 8 characters or more!")
   }
 
   // check if user already exist with user email
