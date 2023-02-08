@@ -31,7 +31,7 @@ This project is a Notes keeping web application built with MERN stack
     - react-color
     - material ui
 
-## link of the project
+## Live Link of the project
 [noteskeepingapp](https://noteskeeperweb.netlify.app)
 
 ## Future works
