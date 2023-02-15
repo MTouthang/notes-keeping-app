@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
 import config from "../config/index.js";
+import crypto from "crypto";
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -23,7 +24,14 @@ const userSchema = new Schema(
       required: [true, "password is required!"],
       min: [8, "password must be at least 8 characters"],
     },
+    forgotPasswordToken: {
+      type: String,
+    },
+    forgotPasswordExpiryDate: {
+      type: String,
+    },
   },
+
   {
     timestamps: true,
   }
@@ -69,6 +77,18 @@ userSchema.methods.getJwtToken = function () {
       expiresIn: config.JWT_EXPIRY,
     }
   );
+};
+
+userSchema.methods.forgotPasswordToken = function () {
+  // generate random string and hash for token
+  const forgotPasswordToken = crypto.randomBytes(20).toString("hex");
+  this.forgotPasswordToken = crypto
+    .createHash("sha256")
+    .update(forgotPasswordToken)
+    .digest("hex");
+
+  // set the expiry date.
+  this.forgotPasswordExpiryDate = Date.now() + 20 * 60 + 1000;
 };
 
 export default mongoose.model("user", userSchema);
