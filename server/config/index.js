@@ -10,11 +10,11 @@ const config = {
     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
     httpOnly: true,
   },
-  SMTP_MAIL: "",
-  SMTP_HOST: "",
-  SMTP_PORT: "",
-  SMTP_USERNAME: "",
-  SMTP_PASSWORD: "",
+  SMTP_EMAIL: process.env.SMTP_EMAIL,
+  SMTP_HOST: process.env.SMTP_HOST,
+  SMTP_PORT: process.env.SMTP_PORT,
+  SMTP_USERNAME: process.env.SMTP_USERNAME,
+  SMTP_PASSWORD: process.env.SMTP_PASSWORD,
 };
 
 export default config;

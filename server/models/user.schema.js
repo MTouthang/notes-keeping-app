@@ -79,16 +79,17 @@ userSchema.methods.getJwtToken = function () {
   );
 };
 
-userSchema.methods.forgotPasswordToken = function () {
+userSchema.methods.getForgotPasswordToken = function () {
   // generate random string and hash for token
-  const forgotPasswordToken = crypto.randomBytes(20).toString("hex");
+  const forgotToken = crypto.randomBytes(20).toString("hex");
   this.forgotPasswordToken = crypto
     .createHash("sha256")
-    .update(forgotPasswordToken)
+    .update(forgotToken)
     .digest("hex");
 
   // set the expiry date.
   this.forgotPasswordExpiryDate = Date.now() + 20 * 60 + 1000;
+  return forgotToken;
 };
 
 export default mongoose.model("user", userSchema);

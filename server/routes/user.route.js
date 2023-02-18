@@ -1,5 +1,4 @@
 import express from "express";
-const router = express.Router();
 
 import {
   getUserInfo,
@@ -7,9 +6,11 @@ import {
   login,
   logout,
   signup,
+  userForgotPassword,
 } from "../controllers/user.controller.js";
 // middleware
 import { isLogin } from "../middlewares/authUser.middleware.js";
+const router = express.Router();
 
 // testing routes
 router.route("/").get(isLogin, home);
@@ -19,6 +20,7 @@ router.route("/auth/user/signup").post(signup);
 router.route("/auth/user/login").post(login);
 router.route("/auth/user/logout").get(logout);
 router.route("/auth/user/info").get(isLogin, getUserInfo);
+router.route("/auth/password/forgot").post(userForgotPassword);
 
 // error route
 // router.route("*").get(routeError);

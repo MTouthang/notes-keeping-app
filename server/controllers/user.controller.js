@@ -3,6 +3,7 @@ import User from "../models/user.schema.js";
 import asyncHandler from "../services/asyncHandler.js";
 import CustomError from "../utils/customError.js";
 import validator from "validator";
+import mailHelper from "../services/mailHelper.js";
 /********************************************
  * test home route
  *******************************************/
@@ -32,14 +33,13 @@ export const signup = asyncHandler(async (req, res, next) => {
     throw new CustomError("Please enter a valid email", 400);
   }
 
-
   if (!userName || !email || !password) {
     // 400 Bad request - The request was malformed or invalid
     throw new CustomError("Please fill all fields", 400);
   }
 
-  if(password.length <= 7) {
-    throw new CustomError("Password must 8 characters or more!")
+  if (password.length <= 7) {
+    throw new CustomError("Password must 8 characters or more!");
   }
 
   // check if user already exist with user email
@@ -158,4 +158,63 @@ export const getUserInfo = asyncHandler(async (req, res, next) => {
     success: true,
     data,
   });
+});
+
+/******************************************
+ * @userForgotPassword
+ * @route http://localhost:8080/api/v1/auth/password/forgot
+ * @description user will submit email and will generate token
+ * @parameters {String} email
+ * @return {String} success message
+ ******************************************/
+export const userForgotPassword = asyncHandler(async (req, res, next) => {
+  // get email
+  const { email } = req.body;
+
+  // check user in the database
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new CustomError("user is not available", 404);
+  }
+
+  // get resetToken
+  const resetToken = user.getForgotPasswordToken();
+
+  if (!resetToken) {
+    throw new CustomError("Problem in generating the token", 500);
+  }
+
+  // save the resetToken to db
+  await user.save({ validateBeforeSave: false });
+
+  // create reset url
+  const resetUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/auth/password/reset/${resetToken}`;
+
+  // create mail text with url
+  const text = `Your password reset url is \n\n
+  ${resetUrl} \n\n`;
+
+  try {
+    await mailHelper({
+      email: user.email,
+      subject: "Reset Password Link",
+      text: text,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email send to ${user.email}`,
+    });
+  } catch (err) {
+    // removing the generated value
+    user.forgotPasswordToken = undefined;
+    user.forgotPasswordExpiryDate = undefined;
+    user.save({ validateBeforeSave: false });
+
+    // show the error
+    throw new CustomError(err.message || "Email fail to sent", 500);
+  }
 });
