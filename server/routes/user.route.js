@@ -7,6 +7,7 @@ import {
   logout,
   signup,
   userForgotPassword,
+  userResetPassword,
 } from "../controllers/user.controller.js";
 // middleware
 import { isLogin } from "../middlewares/authUser.middleware.js";
@@ -21,6 +22,7 @@ router.route("/auth/user/login").post(login);
 router.route("/auth/user/logout").get(logout);
 router.route("/auth/user/info").get(isLogin, getUserInfo);
 router.route("/auth/password/forgot").post(userForgotPassword);
+router.route("/auth/password/reset/:token").post(userResetPassword);
 
 // error route
 // router.route("*").get(routeError);
