@@ -6,6 +6,7 @@ import {
   login,
   logout,
   signup,
+  userChangePassword,
   userForgotPassword,
   userResetPassword,
 } from "../controllers/user.controller.js";
@@ -23,6 +24,7 @@ router.route("/auth/user/logout").get(logout);
 router.route("/auth/user/info").get(isLogin, getUserInfo);
 router.route("/auth/password/forgot").post(userForgotPassword);
 router.route("/auth/password/reset/:token").post(userResetPassword);
+router.route("/auth/password/change").post(isLogin, userChangePassword);
 
 // error route
 // router.route("*").get(routeError);

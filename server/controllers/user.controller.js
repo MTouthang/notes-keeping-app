@@ -271,3 +271,45 @@ export const userResetPassword = asyncHandler(async (req, res, next) => {
     user,
   });
 });
+
+/******************************************
+ * @userChangePassword
+ * @route http://localhost:8080/api/v1/auth/password/change
+ * @description login user will be able to change password
+ * @parameters existing password and new password along with confirm password
+ * @return user object
+ ******************************************/
+export const userChangePassword = asyncHandler(async (req, res, next) => {
+  // only available if the user is login i.e auth middleware is up and running
+  const userId = req.user.id; // double check for _id or id
+
+  // fetch user with the userId
+  const user = await User.findById(userId).select("+password"); // include password while fetching user with userId
+
+  // check user is present or not
+  if (!user) {
+    throw new CustomError("User is not login", 400);
+  }
+
+  // check if the old password are matched or not
+  const isPassWordMatch = await user.isValidPassword(req.body.oldPassword);
+
+  if (!isPassWordMatch) {
+    throw new CustomError("Old password and new password does not match!", 400);
+  }
+
+  user.password = req.body.newPassword;
+  await user.save();
+
+  // generate token again
+  res.cookie("token", token);
+
+  const token = user.getJwtToken();
+  user.password = undefined;
+
+  return res.status(200).json({
+    success: true,
+    token,
+    user,
+  });
+});
